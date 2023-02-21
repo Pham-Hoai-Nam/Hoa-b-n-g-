@@ -8,6 +8,10 @@ import router from './router'
 import vuesticGlobalConfig from './services/vuestic-ui/global-config'
 
 const app = createApp(App)
+import {
+    TableComponent,
+  } from "@/components/index.ts";
+app.component("table-component", TableComponent);
 
 app.use(createPinia())
 app.use(router)

@@ -27,7 +27,7 @@ export default {
     },
     {
       name: 'dashboard2',
-      displayName: 'Tiền gử',
+      displayName: 'Tiền gửi',
       meta: {
         icon: 'vuestic-iconset-dashboard',
       },
