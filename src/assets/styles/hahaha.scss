@@ -1,0 +1,30 @@
+* {
+    font-size: 14px !important;
+}
+.logo{
+    color: black;
+    text-transform: uppercase;
+}
+.va-icon-menu-collapsed {
+    color: black;
+}
+.va-navbar{
+    height: 40px;
+}
+.va-sidebar{
+    // width: 180px !important;
+    background-color: #262823 !important;
+}
+.va-sidebar__title,.va-sidebar-item__icon{
+    color: rgb(241, 241, 241) ;
+}
+.va-sidebar-item__icon{
+    margin-right: 10px !important;
+}
+.router-link-exact-active{
+    background-color:  rgb(241, 241, 241) !important;
+    border-color: black !important;
+    .va-icon,.va-sidebar__title{
+        color: black !important;
+    }
+}
