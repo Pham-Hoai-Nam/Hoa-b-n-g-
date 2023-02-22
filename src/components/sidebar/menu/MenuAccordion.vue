@@ -1,5 +1,5 @@
 <template>
-  <va-accordion v-model="accordionValue" class="sidebar-accordion va-sidebar__menu__inner mt-5" multiply>
+  <va-accordion  v-model="accordionValue" class="sidebar-accordion va-sidebar__menu__inner mt-5" multiply>
     <va-collapse v-for="(route, idx) in items" :key="idx">
       <template #header>
         <va-sidebar-item :active="isRouteActive(route)" :to="route.children ? undefined : { name: route.name }">
@@ -35,6 +35,7 @@
   import { useRoute } from 'vue-router'
   import { useI18n } from 'vue-i18n'
   const { t } = useI18n()
+  import { menu_width } from "@/services/menu";
 
   const props = withDefaults(
     defineProps<{

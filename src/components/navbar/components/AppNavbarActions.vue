@@ -2,7 +2,13 @@
   <div class="app-navbar-actions">
     <!-- <color-dropdown class="app-navbar-actions__item" /> -->
     <!-- <message-dropdown class="app-navbar-actions__item" /> -->
-    <!-- <notification-dropdown class="app-navbar-actions__item" /> -->
+    <i class="fa-solid fa-bell"></i>
+    <va-avatar
+    src="https://randomuser.me/api/portraits/women/5.jpg"
+    class="mr-6"
+    size="small"
+  />
+  <span class="ml-2">Hoa bán gà<i class="ml-2 fa-solid fa-caret-down"></i></span>
     <!-- <settings-dropdown class="app-navbar-actions__item" /> -->
     <!-- <language-dropdown class="app-navbar-actions__item" /> -->
     <!-- <profile-dropdown class="app-navbar-actions__item app-navbar-actions__item--profile"> -->
@@ -45,6 +51,10 @@
 </script>
 
 <style lang="scss">
+.fa-bell{
+  margin-right: 10px;
+  font-size: 20px !important;
+}
   .app-navbar-actions {
     display: flex;
     align-items: center;

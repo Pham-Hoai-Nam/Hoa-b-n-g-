@@ -9,9 +9,11 @@ import vuesticGlobalConfig from './services/vuestic-ui/global-config'
 
 const app = createApp(App)
 import {
-    TableComponent,
+    TableComponent,ModalDefault,ErrorLabelComponent
   } from "@/components/index.ts";
 app.component("table-component", TableComponent);
+app.component("modal-default", ModalDefault);
+app.component("error-label-component", ErrorLabelComponent);
 
 app.use(createPinia())
 app.use(router)

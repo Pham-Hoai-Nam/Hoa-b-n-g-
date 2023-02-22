@@ -13,7 +13,7 @@ export default [
   },
   {
     name: 'calendar_today',
-    to: 'calendar_today',
+    to: 'fa-solid fa-calendar-days',
   },
   {
     name: 'check',

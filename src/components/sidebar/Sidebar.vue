@@ -1,21 +1,27 @@
 <template>
-  <va-sidebar
-    :width="width"
-    :minimized="menuMini"
-    :minimized-width="minimizedWidth"
+  <div
+    style="background-color: black !important; height: 100vh;"
+    ref="minimized_width"
   >
-    <menu-minimized v-if="menuMini" :items="items" />
-    <menu-accordion v-else :items="items" />
-  </va-sidebar>
+    <va-sidebar
+      :width="width"
+      :minimized="menuMini"
+      :minimized-width="minimizedWidth"
+    >
+      <menu-minimized  v-if="menuMini" :items="items" />
+      <menu-accordion  v-else :items="items" />
+    </va-sidebar>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref ,watch} from "vue";
+import { ref, watch, onMounted, onUnmounted, computed } from "vue";
 import NavigationRoutes from "./NavigationRoutes";
 import MenuAccordion from "./menu/MenuAccordion.vue";
 import MenuMinimized from "./menu/MenuMinimized.vue";
-import { menuMini } from "@/services/menu";
-
+import { menuMini, menu_width } from "@/services/menu";
+const minimized_width = ref("");
+const accordion_width = ref("");
 withDefaults(
   defineProps<{
     width?: string;
@@ -29,11 +35,16 @@ withDefaults(
     minimized: true,
     minimizedWidth: undefined,
   }
-);watch(menuMini,()=> {
-  console.log(menuMini.value);
-  
-})
-
+);
+const widthSideBar = computed(() => {
+  return minimized_width.value.offsetWidth;
+});
+watch(minimized_width.value.offsetWidth, () => {
+  localStorage.setItem("widthSideBar",minimized_width.value.offsetWidth);
+});
+onMounted(() => {
+  localStorage.setItem("widthSideBar", widthSideBar.value);
+});
 const items = ref(NavigationRoutes.routes);
 </script>
 

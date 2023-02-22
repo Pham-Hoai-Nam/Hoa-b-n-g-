@@ -3,12 +3,16 @@
     <va-navbar>
       <template #left>
         <div class="left">
-          <va-icon-menu-collapsed
+          <!-- <va-icon-menu-collapsed
             :class="{ 'x-flip': isSidebarMinimized }"
             class="va-navbar__item"
             :color="colors.primary"
             @click="(isSidebarMinimized = !isSidebarMinimized), menu()"
-          />
+          /> -->
+          <i
+            class="fa-solid fa-bars "
+            @click="(isSidebarMinimized = !isSidebarMinimized), menu()"
+          ></i>
           <router-link to="/">
             <vuestic-logo class="logo" />
           </router-link>
@@ -45,7 +49,7 @@ const { getColors } = useColors();
 const colors = computed(() => getColors());
 const menu = () => {
   menuMini.value = !menuMini.value;
-  console.log(menuMini.value);
+  // console.log(menuMini.value);
 };
 </script>
 
@@ -99,5 +103,8 @@ const menu = () => {
   &:last-child {
     margin-right: 0;
   }
+}
+.fa-bars{
+  font-size:20px  !important ;
 }
 </style>

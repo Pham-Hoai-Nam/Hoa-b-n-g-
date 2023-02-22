@@ -1,68 +1,101 @@
 * {
     font-size: 14px !important;
 }
-.logo{
+.logo {
     color: black;
     text-transform: uppercase;
 }
 .va-icon-menu-collapsed {
     color: black;
 }
-.va-navbar{
+.va-navbar {
     height: 40px;
 }
-.va-sidebar{
+.va-sidebar {
     // width: 180px !important;
     background-color: #262823 !important;
     height: unset !important;
 }
-.va-sidebar__title,.va-sidebar-item__icon{
-    color: rgb(241, 241, 241) ;
+.va-sidebar__title,
+.va-sidebar-item__icon {
+    color: rgb(241, 241, 241);
 }
-.va-sidebar-item__icon{
+.va-sidebar-item__icon {
     margin-right: 10px !important;
 }
-.router-link-exact-active{
-    background-color:  rgb(241, 241, 241) !important;
+.router-link-exact-active {
+    background-color: rgb(241, 241, 241) !important;
     border-color: black !important;
-    .va-icon,.va-sidebar__title{
+    .va-icon,
+    .va-sidebar__title {
         color: black !important;
     }
 }
-.app-layout__page{
+.app-layout__page {
     background: #eeeff1;
 }
-.va-card{
+.va-card {
     border-radius: 3px !important;
-    width: calc( 100vw - 280px );
+    // width: calc( 100vw - 280px );
 }
-.va-checkbox__square{
+.va-checkbox__square {
     min-width: 0px !important;
     width: 15px !important;
     height: 15px !important;
 }
+.btn-main {
+    margin-bottom: 10px;
+    border-radius: 3px !important;
+    background: #3e9209 !important;
+    .va-button__content {
+        font-size: 13px !important;
+    }
+}
+.btn-cancle{
+    border: 1px solid #a5a5a5;
+    background-color: transparent !important;
+    .va-button__content{
+        color: black;
+    }
+}
+.va-input-wrapper {
+    width: 200px;
+    border: 1px solid #a5a5a5;
+    border-radius: 3px !important;
+    input {
+        font-size: 12px !important;
+    }
+}
+.va-input-wrapper__field {
+    min-height: 25px !important;
+    min-height: 25px !important;
+}
+.va-input-wrapper--focused {
+    border: none;
+    --va-input-wrapper-border-color: #a5a5a5;
+}
 .va-table-responsive {
     overflow: auto;
-  }
-  .va-data-table {
+}
+.va-data-table {
     // min-height: 200px !important;
-    max-height: 400px !important;
-  }
+    max-height: calc(100vh - 280px) !important;
+}
 //   ::-webkit-scrollbar {
 //     width: 5px;
 //     height: 5px;
 //     background-color: #079879;
 //   }
-  
+
 //   ::-webkit-scrollbar-thumb {
 //     background-color: #079879;
 //   }
-  
+
 //   ::-webkit-scrollbar-track {
 //     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 //     background-color: #f5f5f5;
 //   }
-  th {
+th {
     width: max-content;
     min-width: max-content;
     font-size: 11px !important;
@@ -72,25 +105,72 @@
     padding-top: 5px !important;
     font-weight: 600;
     border: 1px solid #a5a5a5;
-    border-bottom: none  !important;
+    border-bottom: none !important;
     text-align: left;
-  }
-  td {
+}
+td {
     font-size: 12px !important;
     color: black;
     padding: 8px 8px !important;
     font-weight: 400;
     border: 1px solid #a5a5a5;
-    span{
+    span {
+        font-size: 12px !important;
+    }
+}
+thead {
+    background-color: #eeeeee !important;
+    border: none !important;
+}
+table {
+    border-radius: 3px !important;
+    overflow: hidden !important ;
+}
+.va-modal__inner {
+    min-width: 790px;
+    padding: 0px;
+    .va-card__title {
+        padding: 6px 10px;
+        background-color: #079879;
+        color: #fff !important;
+        font-size: 13px !important;
+        margin-bottom: 8px;
+        font-weight: 400;
+        font-family: "Roboto", sans-serif;
+        display: none;
+    }
+    .va-card__content {
+        padding: 5px 20px;
+    }
+}
+.va-modal__container {
+    margin-bottom: 200px !important;
+}
+
+.va-modal__dialog {
+    max-width: max-content;
+}
+.va-modal__inner {
+    max-width: max-content;
+}
+.va-input-wrapper {
+    width: 150px !important;
+}
+.va-radio {
+    margin-right: 45px;
+    display: flex;
+    // align-items: center;
+}
+.va-radio__text{
+    position: absolute;
+    top: 3px !important;
+}
+
+.error-form {
+    margin-bottom: 0px !important;
+    padding-left: 0;
+  
+    li {
       font-size: 12px !important;
     }
   }
-  thead {
-    background-color: #eeeeee !important;
-    border: none !important;
-  }
-  table{
-    border-radius: 3px !important;
-    overflow: hidden !important ;
-  }
-  
