@@ -6,7 +6,7 @@
         v-for="(entry, key) in listErrors"
         :key="key"
         v-text="entry"
-        :title="`${entry}`"
+        :title="`${entry}`" 
       ></li>
     </template>
   </ul>

@@ -21,11 +21,11 @@ export default [
   },
   {
     name: 'chevron_left',
-    to: 'chevron_left',
+    to: 'fa-chevron-left',
   },
   {
     name: 'chevron_right',
-    to: 'chevron_right',
+    to: 'fa-chevron-right',
   },
   {
     name: 'done',
@@ -37,11 +37,11 @@ export default [
   },
   {
     name: 'expand_less',
-    to: 'expand_less',
+    to: 'fa-caret-down',
   },
   {
     name: 'expand_more',
-    to: 'expand_more',
+    to: 'fa-caret-down',
   },
   {
     name: 'angle_down',
@@ -169,7 +169,7 @@ export default [
   },
   {
     name: 'first_page',
-    to: 'first_page',
+    to: 'fa-angles-left',
   },
   {
     name: 'github',
@@ -241,7 +241,7 @@ export default [
   },
   {
     name: 'last_page',
-    to: 'last_page',
+    to: 'fa-angles-right',
   },
   {
     name: 'loop',

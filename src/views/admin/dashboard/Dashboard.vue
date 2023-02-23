@@ -33,7 +33,7 @@
               <th>Tên nhân viên</th>
               <th>Giới tính</th>
               <th>Ngày sinh</th>
-              <th>Số CCCD</th>
+              <th>Số CMND</th>
               <th>Chức danh</th>
               <th>Tên đơn vị</th>
               <th>Số tài khoản</th>
@@ -43,24 +43,33 @@
             </tr>
           </template>
           <template v-slot:body>
-            <tr v-for="item in 30" :key="item">
+            <tr v-for="(item, key) in lists" :key="key">
               <td><va-checkbox /></td>
-              <td>0012</td>
-              <td>Hóa bán cá</td>
-              <td>Nam</td>
-              <td>01/01/1990</td>
-              <td>8888888888</td>
-              <td>Tạp vụ</td>
-              <td>Chợ cá</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.name }}</td>
+              <td>
+                <span v-if="item.gender == 0">Nam</span>
+                <span v-if="item.gender == 1">Nữ</span
+                ><span v-if="item.gender == 2">Nam/Nữ</span>
+              </td>
+              <td>{{ item.date_of_birth }}</td>
+              <td>{{ item.cmnd }}</td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.department.name }}</td>
+              <td>{{ item.bank_number }}</td>
+              <td>{{ item.bank.name }}</td>
+              <td>{{ item.bank_branch }}</td>
               <td class="text-center" style="color: #1787db">
                 Sửa <i class="fa-solid fa-caret-down"></i>
               </td>
             </tr>
           </template>
         </table-component>
+        <pagination-component
+        class="me-3"
+          :pagination="pagination"
+          @changePagination="changePage"
+        />
       </va-card-content>
     </va-card>
   </div>
@@ -68,9 +77,11 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { menuMini, menu_width } from "@/services/menu";
 import Add from "@/components/Add.vue";
+import PaginationComponent from "@/components/PaginationComponent.vue";
+import axios from "axios";
 const modal = ref(false);
 const getConfirm = ref(0);
 const showModal = () => {
@@ -82,6 +93,15 @@ watch(getConfirm, () => {
 });
 const width = computed(() => {
   return menuMini.value ? 130 : 280;
+});
+const pagination = ref();
+const lists = ref([]);
+onMounted(() => {
+  axios.get("http://127.0.0.1:8000/api/employees").then((response) => {
+    lists.value = response.data.data;
+    console.log(response.data.meta);
+    pagination.value = response.data.meta;
+  });
 });
 </script>
 
