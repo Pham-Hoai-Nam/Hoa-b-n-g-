@@ -51,10 +51,10 @@
         font-size: 13px !important;
     }
 }
-.btn-cancle{
+.btn-cancle {
     border: 1px solid #a5a5a5;
     background-color: transparent !important;
-    .va-button__content{
+    .va-button__content {
         color: black;
     }
 }
@@ -161,7 +161,7 @@ table {
     display: flex;
     // align-items: center;
 }
-.va-radio__text{
+.va-radio__text {
     position: absolute;
     top: 3px !important;
 }
@@ -169,60 +169,95 @@ table {
 .error-form {
     margin-bottom: 0px !important;
     padding-left: 0;
-  
+
     li {
-      font-size: 12px !important;
+        font-size: 12px !important;
     }
-  }
-  .modal-err{
-    .va-modal__inner{
+}
+.modal-err {
+    .va-modal__inner {
         min-width: 500px !important;
     }
-  }
-  .fa-circle-exclamation{
+}
+.fa-circle-exclamation {
     font-size: 30px !important;
     color: rgb(219, 63, 63);
-  }
-  .pagination {
+}
+.pagination {
     margin-top: 10px;
     display: flex;
     justify-content: end;
-  }
-  .pagination {
+}
+.pagination {
     .va-button-group {
-      border-radius: 0;
+        border-radius: 0;
     }
-  
-    .va-button--small {
-      border-radius: 5px;
-      min-height: 28px;
-      height: 28px !important;
-      padding-left: 5px !important;
-      padding-right: 5px !important;
-      min-width: calc(2 + var(--va-pagination-button-content-width));
-      display: flex;
-      align-items: center;
-      line-height: 15px;
-      font-size: 12px !important;
-  
-      &.va-button--no-label {
-        text-align: center;
-      }
-  
-      .va-button__content {
-        min-width: 30px;
-        justify-content: center;
-      }
-    }
-  
-    .va-button--outline {
-      border: 1px solid #215890;
-    }
-  }
-  .pagination{
 
-      .va-input-wrapper {
-          width: 35px !important;
-          border: none !important;
+    .va-button--small {
+        border-radius: 5px;
+        min-height: 28px;
+        height: 28px !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        min-width: calc(2 + var(--va-pagination-button-content-width));
+        display: flex;
+        align-items: center;
+        line-height: 15px;
+        font-size: 12px !important;
+
+        &.va-button--no-label {
+            text-align: center;
+        }
+
+        .va-button__content {
+            min-width: 30px;
+            justify-content: center;
         }
     }
+
+    .va-button--outline {
+        border: 1px solid #215890;
+    }
+}
+.pagination {
+    .va-input-wrapper {
+        width: 35px !important;
+        border: none !important;
+    }
+}
+.popup {
+    right: 30px;
+    width: 150px;
+    height: max-content;
+    border: 1px solid #a5a5a5;
+    position: absolute;
+    background-color: #fff;
+    z-index: 99999;
+    color: #5c5c5c;
+    text-align: left;
+    div {
+        // margin-bottom: 10px;
+        // margin-top: 18px;
+        // margin-left: 15px;
+        padding: 10px 15px;
+        &:hover {
+            background-color: #d3d3d3;
+        }
+    }
+}
+.fa-arrows-rotate {
+    font-size: 40px !important;
+}
+.inner-loading__overlay {
+    height: 100vh !important;
+}
+.input-select{
+
+    .va-input-wrapper{
+        width: 360px !important;
+    }
+}
+.form-select{
+    background-color:  #f7f7f7 !important;
+    height: 28px !important;
+}

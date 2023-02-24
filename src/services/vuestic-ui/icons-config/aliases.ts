@@ -141,7 +141,7 @@ export default [
   },
   {
     name: 'refresh',
-    to: 'fa4-refresh',
+    to: 'fa-arrows-rotate',
   },
   {
     name: 'search',
@@ -245,7 +245,7 @@ export default [
   },
   {
     name: 'loop',
-    to: 'loop',
+    to: 'fa-arrows-rotate',
   },
   {
     name: 'maki_art_gallery',

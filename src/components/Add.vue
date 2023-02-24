@@ -73,16 +73,16 @@
             ></label
           >
           <!-- <div class="radio-group"> -->
-            <va-radio
-            style="display:inline-block"
-              color="success"
-              v-for="(option, index) in optionType"
-              :key="index"
-              v-model="fields.gender"
-              :option="option.value"
-              :label="option.label"
-            />
-            <!-- <error-label-component name="room_level_id" /> -->
+          <va-radio
+            style="display: inline-block"
+            color="success"
+            v-for="(option, index) in optionType"
+            :key="index"
+            v-model="fields.gender"
+            :option="option.value"
+            :label="option.label"
+          />
+          <!-- <error-label-component name="room_level_id" /> -->
           <!-- </div> -->
         </div>
       </div>
@@ -93,12 +93,35 @@
             ><i class="fa-solid fa-star-of-life"></i
           ></label>
           <div>
-            <va-input
+            <!-- <va-input
               :title="errors.department_id"
               :class="{ error: errors.department_id }"
               style="width: 360px !important"
               v-model="fields.department_id"
-            /><error-label-component name="room_level_id" />
+            /> -->
+            <!-- <va-select
+              class="input-select"
+              v-model="fields.department_id"
+              :options="listsDepartments"
+              track-by="id"
+            /> -->
+
+            <select
+              style="width: 360px !important"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <option
+                v-for="(item, key) in listsDepartments"
+                :key="key"
+                :value="item.id"
+              >{{item.name}}</option>
+              <!-- <option selected>Open this select menu</option> -->
+              <!-- <option value="1">One</option> -->
+              <!-- <option value="2">Two</option> -->
+              <!-- <option value="3">Three</option> -->
+            </select>
+            <error-label-component name="room_level_id" />
           </div>
         </div>
         <div class="form-group mr-3">
@@ -301,22 +324,34 @@
       <div class="mt-4 d-flex">
         <i class="fa-solid fa-circle-exclamation"></i>
         <div class="ms-4">
-          <div class="mb-2">{{ errors.code }}</div>
-          <div class="mb-2">{{ errors.name }}</div>
-          <div class="mb-2">{{ errors.department_id }}</div>
-          <div class="mb-2">{{ errors.title }}</div>
-          <div class="mb-2">{{ errors.date_of_birth }}</div>
-          <div class="mb-2">{{ errors.gender }}</div>
-          <div class="mb-2">{{ errors.cmnd }}</div>
-          <div class="mb-2">{{ errors.license_date }}</div>
-          <div class="mb-2">{{ errors.city }}</div>
-          <div class="mb-2">{{ errors.address }}</div>
-          <div class="mb-2">{{ errors.phone }}</div>
-          <div class="mb-2">{{ errors.landline_phone }}</div>
-          <div class="mb-2">{{ errors.email }}</div>
-          <div class="mb-2">{{ errors.bank_number }}</div>
-          <div class="mb-2">{{ errors.bank_id }}</div>
-          <div class="mb-2">{{ errors.bank_branch }}</div>
+          <div v-if="errors.code" class="mb-2">{{ errors.code[0] }}</div>
+          <div v-if="errors.name" class="mb-2">{{ errors.name[0] }}</div>
+          <div v-if="errors.department_id" class="mb-2">
+            {{ errors.department_id[0] }}
+          </div>
+          <div v-if="errors.title" class="mb-2">{{ errors.title[0] }}</div>
+          <div v-if="errors.date_of_birth" class="mb-2">
+            {{ errors.date_of_birth[0] }}
+          </div>
+          <div v-if="errors.gender" class="mb-2">{{ errors.gender[0] }}</div>
+          <div v-if="errors.cmnd" class="mb-2">{{ errors.cmnd[0] }}</div>
+          <div v-if="errors.license_date" class="mb-2">
+            {{ errors.license_date[0] }}
+          </div>
+          <div v-if="errors.city" class="mb-2">{{ errors.city[0] }}</div>
+          <div v-if="errors.address" class="mb-2">{{ errors.address[0] }}</div>
+          <div v-if="errors.phone" class="mb-2">{{ errors.phone[0] }}</div>
+          <div v-if="errors.landline_phone" class="mb-2">
+            {{ errors.landline_phone[0] }}
+          </div>
+          <div v-if="errors.email" class="mb-2">{{ errors.email[0] }}</div>
+          <div v-if="errors.bank_number" class="mb-2">
+            {{ errors.bank_number[0] }}
+          </div>
+          <div v-if="errors.bank_id" class="mb-2">{{ errors.bank_id[0] }}</div>
+          <div v-if="errors.bank_branch" class="mb-2">
+            {{ errors.bank_branch[0] }}
+          </div>
         </div>
       </div>
       <div>
@@ -344,6 +379,7 @@ import {
   onMounted,
 } from "vue";
 import axios from "axios";
+import { menuMini, menu_width, loading } from "@/services/menu";
 const props = defineProps({
   showModal: Boolean,
   titleModal: String,
@@ -367,12 +403,12 @@ const modalErr = ref(false);
 const fields = reactive({
   code: "",
   name: "",
-  department_id: "",
+  department_id: 1,
   title: "",
-  date_of_birth: "",
+  date_of_birth: null,
   gender: 0,
   cmnd: "",
-  license_date: "",
+  license_date: null,
   city_id: "",
   address: "",
   phone: "",
@@ -386,16 +422,19 @@ const fields = reactive({
 });
 const errors = ref({});
 const save = async () => {
+  loading.value = true;
   errors.value = {};
   await axios
     .post("http://127.0.0.1:8000/api/employees", { ...fields })
     .then((res) => {
       console.log(res?.response?.data.errors);
+      loading.value = false;
     })
     .catch((error) => {
       errors.value = error?.response?.data.errors;
       modalErr.value = true;
       console.log(errors.value);
+      loading.value = false;
     });
 };
 const options = ["one", "two", "three"];
@@ -404,6 +443,7 @@ const emit = defineEmits(["update:confirm"]);
 const close = () => {
   emit("update:confirm", 1);
 };
+const listsDepartments = ref([]);
 onMounted(() => {
   axios
     .get("http://127.0.0.1:8000/api/employees/get_code")
@@ -412,6 +452,15 @@ onMounted(() => {
     })
     .catch((error) => {
       console.log(error);
+    });
+  axios
+    .get("http://127.0.0.1:8000/api/departments")
+    .then((res) => {
+      listsDepartments.value = res.data.data;
+      console.log(res.data.data);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 </script>

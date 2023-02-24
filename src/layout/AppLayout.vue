@@ -1,43 +1,46 @@
 <template>
-  <div class="app-layout">
-    <div class="app-layout__content">
-      <div
-        class="app-layout__sidebar-wrapper"
-        :class="{ minimized: isSidebarMinimized }"
-      >
-        <div v-if="isFullScreenSidebar" class="d-flex justify--end">
-          <va-button
-            class="px-4 py-4"
-            icon="close"
-            flat
-            color="dark"
-            @click="onCloseSidebarButtonClick"
+  <va-inner-loading :loading="loading" :size="200" icon="refresh" style="z-index:99999;">
+  </va-inner-loading>
+    <div class="app-layout">
+      <div class="app-layout__content">
+        <div
+          class="app-layout__sidebar-wrapper"
+          :class="{ minimized: isSidebarMinimized }"
+        >
+          <div v-if="isFullScreenSidebar" class="d-flex justify--end">
+            <va-button
+              class="px-4 py-4"
+              icon="close"
+              flat
+              color="dark"
+              @click="onCloseSidebarButtonClick"
+            />
+          </div>
+          <sidebar
+            :width="sidebarWidth"
+            :minimized="isSidebarMinimized"
+            :minimized-width="sidebarMinimizedWidth"
           />
         </div>
-        <sidebar
-          :width="sidebarWidth"
-          :minimized="isSidebarMinimized"
-          :minimized-width="sidebarMinimizedWidth"
-        />
-      </div>
-      <div class="app-layout__page">
-        <navbar />
-        <div class="layout fluid gutter--xl d-flex">
-          <router-view />
-          <!-- <div style="width: 30%; margin-left: 10px">
+        <div class="app-layout__page">
+          <navbar />
+          <div class="layout fluid gutter--xl d-flex">
+            <router-view />
+            <!-- <div style="width: 30%; margin-left: 10px">
             <va-card>
               <va-card-title>Thông tin đặt sân</va-card-title>
               <va-card-content></va-card-content>
             </va-card>
           </div> -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { menuMini, menu_width, loading } from "@/services/menu";
 
 import { storeToRefs } from "pinia";
 import { useGlobalStore } from "../stores/global-store";
