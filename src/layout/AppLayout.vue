@@ -1,9 +1,9 @@
 <template>
-  <va-inner-loading :loading="loading" :size="200" icon="refresh" style="z-index:99999;">
+  <va-inner-loading :loading="loading" :size="200" icon="cat" style="z-index:99999;">
   </va-inner-loading>
     <div class="app-layout">
       <div class="app-layout__content">
-        <div
+        <div 
           class="app-layout__sidebar-wrapper"
           :class="{ minimized: isSidebarMinimized }"
         >

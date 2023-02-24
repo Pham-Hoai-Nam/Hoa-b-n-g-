@@ -62,7 +62,7 @@
               :title="errors.date_of_birth"
               :class="{ error: errors.date_of_birth }"
               style="width: 150px !important"
-              v-model="fields.date_of_birth"
+              v-model="fields.date_of_birth_view"
             /><error-label-component name="room_level_id" />
           </div>
         </div>
@@ -115,7 +115,9 @@
                 v-for="(item, key) in listsDepartments"
                 :key="key"
                 :value="item.id"
-              >{{item.name}}</option>
+              >
+                {{ item.name }}
+              </option>
               <!-- <option selected>Open this select menu</option> -->
               <!-- <option value="1">One</option> -->
               <!-- <option value="2">Two</option> -->
@@ -150,7 +152,7 @@
               :title="errors.license_date"
               :class="{ error: errors.license_date }"
               style="width: 150px !important"
-              v-model="fields.license_date"
+              v-model="fields.license_date_view"
             /><error-label-component name="room_level_id" />
           </div>
         </div>
@@ -379,10 +381,12 @@ import {
   onMounted,
 } from "vue";
 import axios from "axios";
+import moment from "moment";
 import { menuMini, menu_width, loading } from "@/services/menu";
 const props = defineProps({
   showModal: Boolean,
   titleModal: String,
+  value: Object,
   class: String,
 });
 const optionType = ref([
@@ -406,9 +410,11 @@ const fields = reactive({
   department_id: 1,
   title: "",
   date_of_birth: null,
+  date_of_birth_view: null,
   gender: 0,
   cmnd: "",
   license_date: null,
+  license_date_view: null,
   city_id: "",
   address: "",
   phone: "",
@@ -420,8 +426,15 @@ const fields = reactive({
   is_customer: false,
   is_supplier: false,
 });
-const errors = ref({});
+const errors = ref({}); const convertTimeToDDMMYYY = (time = null) => {
+  if (time) {
+    return moment(time).format("yyyy-MM-DD");
+  }
+  return null;
+};
 const save = async () => {
+  fields.date_of_birth = convertTimeToDDMMYYY(fields.date_of_birth_view);
+  fields.license_date = convertTimeToDDMMYYY(fields.license_date_view);
   loading.value = true;
   errors.value = {};
   await axios
@@ -443,6 +456,8 @@ const emit = defineEmits(["update:confirm"]);
 const close = () => {
   emit("update:confirm", 1);
 };
+
+watch(props.showModal, () => {});
 const listsDepartments = ref([]);
 onMounted(() => {
   axios
@@ -457,11 +472,38 @@ onMounted(() => {
     .get("http://127.0.0.1:8000/api/departments")
     .then((res) => {
       listsDepartments.value = res.data.data;
-      console.log(res.data.data);
     })
     .catch((err) => {
       console.log(err);
     });
+  if (props.value.id) {
+    console.log(props.value);
+    for (const [key, item] of Object.entries(props.value)) {
+      if (typeof item === "number" && typeof props.value[key] !== "undefined") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        fields[key] = item;
+      }
+      if (typeof item === "string" && typeof props.value[key] !== "undefined") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        fields[key] = item;
+      }
+      if (typeof item === "object" && typeof props.value[key] !== "undefined") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        fields[key] = item;
+      }
+      if (
+        typeof item === "boolean" &&
+        typeof props.value[key] !== "undefined"
+      ) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        fields[key] = item;
+      }
+    }
+  }
 });
 </script>
 

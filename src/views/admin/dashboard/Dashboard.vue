@@ -50,7 +50,12 @@
           </template>
           <template v-slot:body>
             <tr v-for="(item, key) in lists" :key="key">
-              <td><va-checkbox /></td>
+              <td>
+                <va-checkbox
+                  v-model="item.checkbox"
+                  @click="pushItemDelete(item.id)"
+                />
+              </td>
               <td>{{ item.code }}</td>
               <td>{{ item.name }}</td>
               <td>
@@ -72,7 +77,9 @@
               >
                 Sửa <i class="fa-solid fa-caret-down"></i>
                 <div v-if="item.choose" class="popup">
-                  <div class="" @click="activeRow($event)">Nhân bản</div>
+                  <div class="" @click="activeRow($event), extend(item)">
+                    Nhân bản
+                  </div>
                   <div
                     class=""
                     @click="activeRow($event), eventDelete(item.code, item.id)"
@@ -93,7 +100,12 @@
       </va-card-content>
     </va-card>
   </div>
-  <add :showModal="modal" v-model:confirm="getConfirm" />
+  <add
+    v-if="modal"
+    :value="propsValue"
+    :showModal="modal"
+    v-model:confirm="getConfirm"
+  />
   <modal-default :class="`modal-err`" :showModal="modalDelete">
     <template v-slot:body>
       <div class="mt-4 d-flex">
@@ -139,6 +151,15 @@ const showPopup = ref([]);
 const showModal = () => {
   modal.value = true;
 };
+const arrDelete = ref([]);
+  const pushItemDelete = (id) => {
+    const index = arrDelete.value.indexOf(id);
+    if (index < 0) {
+      arrDelete.value.push(id);
+    } else {
+      arrDelete.value.splice(index, 1);
+    }
+  };
 const activeRow = (e) => {
   document
     .querySelectorAll(".active")
@@ -178,15 +199,32 @@ const changePage = async (entry) => {
       loading.value = false;
     });
 };
+const propsValue = ref({});
+const extend = (entry) => {
+  delete entry.code;
+  modal.value = true;
+  propsValue.value = entry;
+};
 const save = async () => {
+  const request = {
+    ids: [],
+  };
   loading.value = true;
+    console.log(arrDelete.value);
+  if (arrDelete.value.length > 0) {
+    idDelete.value = 0;
+    request.ids = arrDelete.value;
+  }
   await axios
-    .delete(`http://127.0.0.1:8000/api/employees/${idDelete.value}`)
+    .delete(`http://127.0.0.1:8000/api/employees/${idDelete.value}`, {
+      ...request,
+    })
     .then((response) => {
       axios.get("http://127.0.0.1:8000/api/employees").then((response) => {
         lists.value = response.data.data;
         lists.value.map((item) => {
           item.choose = false;
+          item.checkbox = false;
         });
         pagination.value = response.data.meta;
         loading.value = false;
@@ -206,6 +244,7 @@ const search = async () => {
       lists.value = response.data.data;
       lists.value.map((item) => {
         item.choose = false;
+        item.checkbox = false;
       });
       pagination.value = response.data.meta;
       loading.value = false;
@@ -217,8 +256,9 @@ const searchAll = async () => {
     lists.value = response.data.data;
     lists.value.map((item) => {
       item.choose = false;
+      item.checkbox = false;
     });
-    searchValue.value = ""
+    searchValue.value = "";
     pagination.value = response.data.meta;
     loading.value = false;
   });
@@ -232,6 +272,7 @@ onMounted(() => {
       lists.value = response.data.data;
       lists.value.map((item) => {
         item.choose = false;
+        item.checkbox = false;
       });
       pagination.value = response.data.meta;
       loading.value = false;

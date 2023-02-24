@@ -17,7 +17,7 @@ export default [
   },
   {
     name: 'check',
-    to: 'check',
+    to: 'fa-check',
   },
   {
     name: 'chevron_left',
@@ -58,6 +58,10 @@ export default [
   {
     name: 'bell_slash',
     to: 'fa4-bell-slash',
+  },
+  {
+    name: 'cat',
+    to: 'fa-solid fa-accessible-icon',
   },
   {
     name: 'bug',
