@@ -23,8 +23,9 @@
         </template>
       </va-input>
       <i
-        style="font-size: 20px !important; color: #a5a5a5"
+        style="font-size: 20px !important; color: #a5a5a5; cursor: pointer"
         class="fa-solid fa-rotate-right pt-1 ml-2"
+        @click="searchAll()"
       ></i>
     </div>
     <va-card :style="`width: calc( 100vw - ${width}px ) ;`">
@@ -210,7 +211,18 @@ const search = async () => {
       loading.value = false;
     });
 };
-
+const searchAll = async () => {
+  loading.value = true;
+  await axios.get(`http://127.0.0.1:8000/api/employees`).then((response) => {
+    lists.value = response.data.data;
+    lists.value.map((item) => {
+      item.choose = false;
+    });
+    searchValue.value = ""
+    pagination.value = response.data.meta;
+    loading.value = false;
+  });
+};
 const lists = ref([]);
 onMounted(() => {
   loading.value = true;
